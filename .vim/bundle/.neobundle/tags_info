@@ -1,0 +1,11 @@
+css.vim
+ctrlp.vim
+neobundle.vim
+scss-syntax.vim
+unite.vim
+vim-coffee-script
+vim-javascript
+vim-jsx
+vim-rails
+vim-ruby
+vim-slim
