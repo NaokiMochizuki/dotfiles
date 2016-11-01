@@ -117,8 +117,6 @@ set backspace=indent,eol,start
 " クリップボード
 set clipboard=unnamed,autoselect
 
-" 貼り付けのときのずれ
-set paste
 
 "----------コピーした際に自動インデントでズレない設定----
 if &term =~ "xterm"
@@ -137,6 +135,13 @@ endif
 
 "==========================================================
 
+
+
+
+"======================ファイル操作系=====================
+"VimFilter起動時からファイル操作が出来る設定(切り替えはgs)
+let g:vimfiler_as_default_explorer = 1
+"=========================================================
 
 
 
@@ -265,6 +270,21 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'bronson/vim-trailing-whitespace'
 "grep機能を使いやすくする
 NeoBundle 'vim-scripts/grep.vim'
+"vimのIDE化
+NeoBundle 'Shougo/unite.vim'
+"ファイル操作をサポート
+NeoBundle 'Shougo/vimfiler'
+"ディレクトリツリーを表示
+NeoBundle 'scrooloose/nerdtree'
+"ディレクトリツリーをタブ開いた瞬間に表示
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'jistr/vim-nerdtree-tabs'
+"インデントを可視化
+NeoBundle 'Yggdroot/indentLine'
+"カーソル移動を楽に
+NeoBundle 'easymotion/vim-easymotion'
+"括弧移動を拡張
+NeoBundle 'tmhedberg/matchit'
 
 if has('lua')
   " コードの自動補完
@@ -276,6 +296,44 @@ if has('lua')
 endif
 "--------------------------------------------------
 
+
+"--------------EasyMotionの設定-------------------
+map <Leader> <Plug>(easymotion-prefix)
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+" nmap s <Plug>(easymotion-overwin-f)
+" or
+" `s{char}{char}{label}`
+" Need one more keystroke, but on average, it may be more comfortable.
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+"-------------------------------------------------
+
+
+"---------------NERDTreeの設定---------------------
+" 隠しファイルをデフォルトで表示させる
+let NERDTreeShowHidden = 1
+
+" デフォルトでツリーを表示させる
+let g:nerdtree_tabs_open_on_console_startup=1
+
+"<C-n>でNERDTreeTabsToggleを呼び出す設定
+map <C-n> <plug>NERDTreeTabsToggle<CR>
+"-------------------------------------------------
+
+"--------------indent guideの設定-----------------
+set list listchars=tab:\¦\
+let g:indentLine_color_term = 111
+let g:indentLine_color_gui = '#708090'
+"-------------------------------------------------
 
 "-----------------自動補完の設定--------------------
 if neobundle#is_installed('neocomplete.vim')
@@ -291,7 +349,6 @@ if neobundle#is_installed('neocomplete.vim')
     let g:neocomplete#auto_completion_start_length = 1
     " バックスペースで補完のポップアップを閉じる
     inoremap <expr><BS> neocomplete#smart_close_popup()."<C-h>"
-
     " エンターキーで補完候補の確定. スニペットの展開もエンターキーで確定・・・・・・②
     imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
     " タブキーで補完候補の選択. スニペット内のジャンプもタブキーでジャンプ・・・・・・③
@@ -311,6 +368,6 @@ call neobundle#end()
 " Required:
 filetype plugin indent on
 
-" 未インストールのプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定
+" 未インストールのプラグインがある場合、vimrc起動時にインストール
 NeoBundleCheck
 "===========================================================

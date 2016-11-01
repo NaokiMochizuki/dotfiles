@@ -17,10 +17,3 @@ alias bi='bundle install'
 
 alias tks='tmux kill-session'
 
-
-
-
-
-
-
-
