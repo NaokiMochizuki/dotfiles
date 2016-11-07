@@ -277,7 +277,6 @@ NeoBundle 'Shougo/vimfiler'
 "ディレクトリツリーを表示
 NeoBundle 'scrooloose/nerdtree'
 "ディレクトリツリーをタブ開いた瞬間に表示
-NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'jistr/vim-nerdtree-tabs'
 "インデントを可視化
 NeoBundle 'Yggdroot/indentLine'
@@ -285,6 +284,16 @@ NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'easymotion/vim-easymotion'
 "括弧移動を拡張
 NeoBundle 'tmhedberg/matchit'
+"helpの日本語化
+NeoBundle 'vim-jp/vimdoc-ja'
+"「=」入力時に自動的にスペースを確保する
+NeoBundle 'kana/vim-smartchr'
+"HTML/CSSの作成簡略化 <C-y>, でタグ展開
+NeoBundle 'mattn/emmet-vim'
+"コメントアウト gccでカレント行 gcで選択行
+NeoBundle 'tomtom/tcomment_vim'
+"指定範囲を楽に囲む 選択範囲を、S＋囲むもの
+NeoBundle 'tpope/vim-surround'
 
 if has('lua')
   " コードの自動補完
@@ -301,20 +310,16 @@ endif
 map <Leader> <Plug>(easymotion-prefix)
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-" nmap s <Plug>(easymotion-overwin-f)
-" or
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
+"sを押したら2文字サーチに入るよう設定
 nmap s <Plug>(easymotion-overwin-f2)
 
-" Turn on case insensitive feature
+"SmartCaseで検索する
 let g:EasyMotion_smartcase = 1
 
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
+
 "-------------------------------------------------
 
 
@@ -354,14 +359,23 @@ if neobundle#is_installed('neocomplete.vim')
     " タブキーで補完候補の選択. スニペット内のジャンプもタブキーでジャンプ・・・・・・③
     imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
 endif
+
+"独自スニペット用のディレクトリ設定
+let g:neosnippet#snippets_directory='~/.vim/snippets/'
 "------------------------------------------------------
 
+"----------------smartchrの設定-----------------------
+"=を打ち込んだ回数でスペースの幅を規定
+inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
+"-----------------------------------------------------
 
 "--------------- ステータスラインの設定-------------------
 set laststatus=2 " ステータスラインを常に表示
 set showmode " 現在のモードを表示
 set showcmd " 打ったコマンドをステータスラインの下に表示
 "---------------------------------------------------------
+
+
 
 call neobundle#end()
 
