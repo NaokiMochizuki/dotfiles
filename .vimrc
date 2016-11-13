@@ -272,8 +272,6 @@ NeoBundle 'bronson/vim-trailing-whitespace'
 NeoBundle 'vim-scripts/grep.vim'
 "vimのIDE化
 NeoBundle 'Shougo/unite.vim'
-"ファイル操作をサポート
-NeoBundle 'Shougo/vimfiler'
 "ディレクトリツリーを表示
 NeoBundle 'scrooloose/nerdtree'
 "ディレクトリツリーをタブ開いた瞬間に表示
@@ -287,13 +285,24 @@ NeoBundle 'tmhedberg/matchit'
 "helpの日本語化
 NeoBundle 'vim-jp/vimdoc-ja'
 "「=」入力時に自動的にスペースを確保する
-NeoBundle 'kana/vim-smartchr'
+"NeoBundle 'kana/vim-smartchr'
 "HTML/CSSの作成簡略化 <C-y>, でタグ展開
 NeoBundle 'mattn/emmet-vim'
 "コメントアウト gccでカレント行 gcで選択行
 NeoBundle 'tomtom/tcomment_vim'
 "指定範囲を楽に囲む 選択範囲を、S＋囲むもの
 NeoBundle 'tpope/vim-surround'
+"true/false など、対になるものを:Switchで切り替え
+NeoBundle 'AndrewRadev/switch.vim'
+
+
+"--- ruby サポート ---
+NeoBundleLazy 'vim-ruby/vim-ruby' , {'autoload':{'filetypes':['ruby']}}
+
+
+"--- rails サポート---
+NeoBundle 'taichouchou2/vim-rails'
+NeoBundle 'romanvbabenko/rails.vim'
 
 if has('lua')
   " コードの自動補完
@@ -366,7 +375,7 @@ let g:neosnippet#snippets_directory='~/.vim/snippets/'
 
 "----------------smartchrの設定-----------------------
 "=を打ち込んだ回数でスペースの幅を規定
-inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
+"inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
 "-----------------------------------------------------
 
 "--------------- ステータスラインの設定-------------------
