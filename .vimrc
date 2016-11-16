@@ -62,6 +62,14 @@ let Grep_Skip_Dirs = '.svn .git'  "無視するディレクトリ
 let Grep_Default_Options = '-I'   "バイナルファイルがgrepしない
 let Grep_Skip_Files = '*.bak *~'  "バックアップファイルを無視する
 "-----------------------------------------------------
+
+":cn,:cpを、[q、]q にバインディング
+nnoremap [q :cprevious<CR>   " 前へ
+nnoremap ]q :cnext<CR>       " 次へ
+nnoremap [Q :<C-u>cfirst<CR> " 最初へ
+nnoremap ]Q :<C-u>clast<CR>  " 最後へ
+
+
 "======================================================
 
 
@@ -269,6 +277,7 @@ NeoBundle 'itchyny/lightline.vim'
 " 末尾の全角と半角の空白文字を赤くハイライト
 NeoBundle 'bronson/vim-trailing-whitespace'
 "grep機能を使いやすくする
+":Rgrep {word} で検索 [q: 前へ,  ]q: 次へ, :cc N{番号}
 NeoBundle 'vim-scripts/grep.vim'
 "vimのIDE化
 NeoBundle 'Shougo/unite.vim'
@@ -294,20 +303,13 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tpope/vim-surround'
 "true/false など、対になるものを:Switchで切り替え
 NeoBundle 'AndrewRadev/switch.vim'
-
-
-"--- ruby サポート ---
-NeoBundleLazy 'vim-ruby/vim-ruby' , {'autoload':{'filetypes':['ruby']}}
-
-
-"--- rails サポート---
-NeoBundle 'taichouchou2/vim-rails'
-NeoBundle 'romanvbabenko/rails.vim'
-
+"日本語の単語移動を分節単位に
+NeoBundle 'deton/gist:5138905'
 if has('lua')
   " コードの自動補完
   NeoBundle 'Shougo/neocomplete.vim'
   " スニペットの補完機能
+  NeoBundle 'Shougo/neosnippet.vim'
   NeoBundle "Shougo/neosnippet"
   " スニペット集
   NeoBundle 'Shougo/neosnippet-snippets'
@@ -370,8 +372,23 @@ if neobundle#is_installed('neocomplete.vim')
 endif
 
 "独自スニペット用のディレクトリ設定
-let g:neosnippet#snippets_directory='~/.vim/snippets/'
+let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/'
+
+"snippets展開とplaceholderの移動をC-kに指定
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+
 "------------------------------------------------------
+
 
 "----------------smartchrの設定-----------------------
 "=を打ち込んだ回数でスペースの幅を規定

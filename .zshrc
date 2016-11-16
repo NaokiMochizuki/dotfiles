@@ -51,3 +51,15 @@ fpath=(/path/to/homebrew/share/zsh-completions $fpath)
 autoload -U compinit
 compinit -u
 
+
+alias rs='bundle exec rails s'
+alias bi='bundle install'
+
+alias rr='bundle exec rake routes'
+alias rdc='bundle exec rake db:create'
+alias rdm='bundle exec rake db:migrate'
+alias rdd='bundle exec rake db:drop'
+alias rds='bundle exec rake db:seed_fu'
+
+alias gpod='git pull origin develop'
+
