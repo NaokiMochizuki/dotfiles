@@ -51,15 +51,31 @@ fpath=(/path/to/homebrew/share/zsh-completions $fpath)
 autoload -U compinit
 compinit -u
 
+#--------------alias---------------
 
+# rails
 alias rs='bundle exec rails s'
+alias rs4='bundle exec rails s -p 4000'
+alias rs5='bundle exec rails s -p 5000'
 alias bi='bundle install'
 
+# rake
 alias rr='bundle exec rake routes'
+alias rdd='bundle exec rake db:drop'
 alias rdc='bundle exec rake db:create'
 alias rdm='bundle exec rake db:migrate'
-alias rdd='bundle exec rake db:drop'
+alias rdr='bundle exec rake db:rollback'
 alias rds='bundle exec rake db:seed_fu'
 
+# git
 alias gpod='git pull origin develop'
 
+# tmux
+alias tm='tmux'
+alias tls='tmux ls'
+alias tlc='tmux lsc'
+alias tks='tmux kill-server'
+alias ex='exit'
+
+
+#------------alias end---------------

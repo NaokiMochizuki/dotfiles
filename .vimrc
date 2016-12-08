@@ -121,10 +121,10 @@ set backspace=indent,eol,start
 
 
 
+
 "=======================コピー&ペースト系=================
 " クリップボード
 set clipboard=unnamed,autoselect
-
 
 "----------コピーした際に自動インデントでズレない設定----
 if &term =~ "xterm"
@@ -150,6 +150,7 @@ endif
 "VimFilter起動時からファイル操作が出来る設定(切り替えはgs)
 let g:vimfiler_as_default_explorer = 1
 "=========================================================
+
 
 
 
@@ -193,7 +194,6 @@ if has('mouse')
     endif
 endif
 "====================================================
-
 
 
 
@@ -305,6 +305,13 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'AndrewRadev/switch.vim'
 "日本語の単語移動を分節単位に
 NeoBundle 'deton/gist:5138905'
+"ファイルが保存されたタイミングでCtag自動更新
+NeoBundle 'soramugi/auto-ctags.vim'
+"vimのセッション保存
+NeoBundle 'tpope/vim-obsession'
+"vimの画面分割を簡易化 C+eで開始 hjklで画面サイズ変更
+NeoBundle 'simeji/winresizer'
+
 if has('lua')
   " コードの自動補完
   NeoBundle 'Shougo/neocomplete.vim'
@@ -315,6 +322,7 @@ if has('lua')
   NeoBundle 'Shougo/neosnippet-snippets'
 endif
 "--------------------------------------------------
+
 
 
 "--------------EasyMotionの設定-------------------
@@ -334,6 +342,7 @@ map <Leader>k <Plug>(easymotion-k)
 "-------------------------------------------------
 
 
+
 "---------------NERDTreeの設定---------------------
 " 隠しファイルをデフォルトで表示させる
 let NERDTreeShowHidden = 1
@@ -345,11 +354,15 @@ let g:nerdtree_tabs_open_on_console_startup=1
 map <C-n> <plug>NERDTreeTabsToggle<CR>
 "-------------------------------------------------
 
+
+
 "--------------indent guideの設定-----------------
 set list listchars=tab:\¦\
 let g:indentLine_color_term = 111
 let g:indentLine_color_gui = '#708090'
 "-------------------------------------------------
+
+
 
 "-----------------自動補完の設定--------------------
 if neobundle#is_installed('neocomplete.vim')
@@ -378,16 +391,13 @@ let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-k>     <Plug>(neosnippet_expand_target)
-
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
-
-
 "------------------------------------------------------
+
 
 
 "----------------smartchrの設定-----------------------
@@ -395,13 +405,19 @@ endif
 "inoremap <expr> = smartchr#one_of(' = ', ' == ', ' === ', '=')
 "-----------------------------------------------------
 
-"--------------- ステータスラインの設定-------------------
+
+
+"--------------Auto-Ctagsの設定---------------------
+let g:auto_ctags = 1
+"-----------------------------------------------------
+
+
+
+"--------------- ステータスラインの設定---------------
 set laststatus=2 " ステータスラインを常に表示
 set showmode " 現在のモードを表示
 set showcmd " 打ったコマンドをステータスラインの下に表示
 "---------------------------------------------------------
-
-
 
 call neobundle#end()
 
