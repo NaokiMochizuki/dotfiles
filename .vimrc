@@ -68,15 +68,12 @@ nnoremap [q :cprevious<CR>   " 前へ
 nnoremap ]q :cnext<CR>       " 次へ
 nnoremap [Q :<C-u>cfirst<CR> " 最初へ
 nnoremap ]Q :<C-u>clast<CR>  " 最後へ
-
-
 "======================================================
 
 
 
 
 "====================syntax系=========================
-
 syntax enable
 set background=dark
 colorscheme desert
@@ -251,7 +248,6 @@ map <silent> [Tag]p :tabprevious<CR>
 
 
 "====================== Neobundle ===========================
-
 " bundleで管理するディレクトリを指定
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 
@@ -281,8 +277,6 @@ NeoBundle 'bronson/vim-trailing-whitespace'
 NeoBundle 'vim-scripts/grep.vim'
 "vimのIDE化
 NeoBundle 'Shougo/unite.vim'
-"ディレクトリツリーを表示
-NeoBundle 'scrooloose/nerdtree'
 "ディレクトリツリーをタブ開いた瞬間に表示
 NeoBundle 'jistr/vim-nerdtree-tabs'
 "インデントを可視化
@@ -311,56 +305,23 @@ NeoBundle 'soramugi/auto-ctags.vim'
 NeoBundle 'tpope/vim-obsession'
 "vimの画面分割を簡易化 C+eで開始 hjklで画面サイズ変更
 NeoBundle 'simeji/winresizer'
-
-if has('lua')
-  " コードの自動補完
-  NeoBundle 'Shougo/neocomplete.vim'
-  " スニペットの補完機能
-  NeoBundle 'Shougo/neosnippet.vim'
-  NeoBundle "Shougo/neosnippet"
-  " スニペット集
-  NeoBundle 'Shougo/neosnippet-snippets'
-endif
+"ESLintをプロジェクト毎にローカルで使う
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'pmsorhaindo/syntastic-local-eslint.vim'
+"JSのSyntax関連
+NeoBundle 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html', 'vue'] }
+NeoBundle 'othree/yajs.vim'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'slim-template/vim-slim'
+NeoBundle 'posva/vim-vue'
+" コードの自動補完
+NeoBundle 'Shougo/neocomplete.vim'
+" スニペットの補完機能
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle "Shougo/neosnippet"
+" スニペット集
+NeoBundle 'Shougo/neosnippet-snippets'
 "--------------------------------------------------
-
-
-
-"--------------EasyMotionの設定-------------------
-map <Leader> <Plug>(easymotion-prefix)
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-"sを押したら2文字サーチに入るよう設定
-nmap s <Plug>(easymotion-overwin-f2)
-
-"SmartCaseで検索する
-let g:EasyMotion_smartcase = 1
-
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-
-"-------------------------------------------------
-
-
-
-"---------------NERDTreeの設定---------------------
-" 隠しファイルをデフォルトで表示させる
-let NERDTreeShowHidden = 1
-
-" デフォルトでツリーを表示させる
-let g:nerdtree_tabs_open_on_console_startup=1
-
-"<C-n>でNERDTreeTabsToggleを呼び出す設定
-map <C-n> <plug>NERDTreeTabsToggle<CR>
-"-------------------------------------------------
-
-
-
-"--------------indent guideの設定-----------------
-set list listchars=tab:\¦\
-let g:indentLine_color_term = 111
-let g:indentLine_color_gui = '#708090'
-"-------------------------------------------------
 
 
 
@@ -383,6 +344,29 @@ if neobundle#is_installed('neocomplete.vim')
     " タブキーで補完候補の選択. スニペット内のジャンプもタブキーでジャンプ・・・・・・③
     imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
 endif
+"----------------------------------------------------
+
+
+
+"---------------NERDTreeの設定---------------------
+" 隠しファイルをデフォルトで表示させる
+let NERDTreeShowHidden = 1
+
+" デフォルトでツリーを表示させる
+let g:nerdtree_tabs_open_on_console_startup=1
+
+"<C-n>でNERDTreeTabsToggleを呼び出す設定
+map <C-n> <plug>NERDTreeTabsToggle<CR>
+"-------------------------------------------------
+
+
+
+"--------------indent guideの設定-----------------
+set list listchars=tab:\¦\
+let g:indentLine_color_term = 111
+let g:indentLine_color_gui = '#708090'
+"-------------------------------------------------
+
 
 "独自スニペット用のディレクトリ設定
 let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/snippets/'
@@ -409,6 +393,23 @@ endif
 
 "--------------Auto-Ctagsの設定---------------------
 let g:auto_ctags = 1
+"-----------------------------------------------------
+
+
+
+
+"--------------ESLintの設定---------------------
+let g:syntastic_javascript_checkers=['eslint']
+" エラー行に sign を表示
+let g:syntastic_enable_signs = 1
+" location list を常に更新
+let g:syntastic_always_populate_loc_list = 0
+" location list を常に表示
+let g:syntastic_auto_loc_list = 0
+" ファイルを開いた時にチェックを実行する
+let g:syntastic_check_on_open = 1
+" :wq で終了する時もチェックする
+let g:syntastic_check_on_wq = 0
 "-----------------------------------------------------
 
 
